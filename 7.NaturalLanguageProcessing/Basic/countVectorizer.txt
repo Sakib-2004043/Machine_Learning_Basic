@@ -1,0 +1,86 @@
+Example:
+=> Three Natural Sentences :
+  1. "I love programming"
+  2. "Programming is fun"
+  3. "I love fun"
+
+Process of Counter Vectorization
+1.Tokenization:
+  Document 1: ["I", "love", "programming"]
+  Document 2: ["programming", "is", "fun"]
+  Document 3: ["I", "love", "fun"]
+
+2.Vocabulary Building:
+  Vocabulary: {"I", "love", "programming", "is", "fun"}
+  We assign indices to each unique word in the 
+  vocabulary:
+              "I": 0
+              "love": 1
+              "programming": 2
+              "is": 3
+              "fun": 4
+
+3.Encoding Each Document as a Vector : 
+  Next, we encode each document as a vector using the vocabulary:
+
+  Document 1: "I love programming"
+    Vector: [1, 1, 1, 0, 0]
+    Explanation:
+    Index 0 ("I"): 1 occurrence
+    Index 1 ("love"): 1 occurrence
+    Index 2 ("programming"): 1 occurrence
+    Indices 3 ("is") and 4 ("fun"): 0 occurrences
+
+  Document 2: "Programming is fun"
+    Vector: [0, 0, 1, 1, 1]
+    Explanation:
+    Indices 0 ("I") and 1 ("love"): 0 occurrences
+    Index 2 ("programming"): 1 occurrence
+    Index 3 ("is"): 1 occurrence
+    Index 4 ("fun"): 1 occurrence
+
+  Document 3: "I love fun"
+    Vector: [1, 1, 0, 0, 1]
+    Explanation:
+    Index 0 ("I"): 1 occurrence
+    Index 1 ("love"): 1 occurrence
+    Indices 2 ("programming"), 3 ("is"): 0 occurrences
+    Index 4 ("fun"): 1 occurrence
+
+4.Document-Term Matrix Representation : 
+    Finally, we construct the document-term matrix 
+    where each row represents a document and 
+    each column represents a term (word from the vocabulary):
+        [
+          [1, 1, 1, 0, 0],  # Document 1: "I love programming"
+          [0, 0, 1, 1, 1],  # Document 2: "Programming is fun"
+          [1, 1, 0, 0, 1]   # Document 3: "I love fun"
+        ]
+    Interpretation :
+      a.Each row corresponds to a document.
+      b.Each column corresponds to a word from the vocabulary.
+      c.The values in the matrix indicate the 
+        frequency of each word in each document.
+
+5.Sparse Matrix Representation : 
+  A sparse matrix only stores the frequency of non-zero elements
+  and their positions, reducing memory usage. 
+  Let's convert the dense matrix into a sparse representation:
+
+  Identify Non-Zero Elements And Store Their Frquency 
+  from Document-Term Matrix Representation:
+    i.e : (rowNumber, columnNumber): frequency
+          or,
+          (rowNumber, columnNumber): DocumentTermMatrix[rowNumber][columnNumber]
+    Document 1:
+    (0, 0): 1 (word "I" in document 1)
+    (0, 1): 1 (word "love" in document 1)
+    (0, 2): 1 (word "programming" in document 1)
+    Document 2:
+    (1, 2): 1 (word "programming" in document 2)
+    (1, 3): 1 (word "is" in document 2)
+    (1, 4): 1 (word "fun" in document 2)
+    Document 3:
+    (2, 0): 1 (word "I" in document 3)
+    (2, 1): 1 (word "love" in document 3)
+    (2, 4): 1 (word "fun" in document 3)
