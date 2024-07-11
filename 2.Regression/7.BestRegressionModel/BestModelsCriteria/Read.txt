@@ -1,0 +1,6 @@
+The more value of R-squared tends to one,
+ the more the result is correct.
+
+How many variable is need to more accurate the
+ the result is got by Adjusted R-squared formula,
+ which is given in 2nd Picture.
